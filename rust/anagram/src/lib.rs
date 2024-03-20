@@ -1,25 +1,25 @@
 use std::collections::HashSet;
 
-pub fn anagrams_for<'a>(word: &str, candidates: &[&'a str]) -> HashSet<&'a str> {
-    let nword = normalize(word);
-    let mut nword_sorted = nword.clone();
-    nword_sorted.sort_unstable();
-    candidates.iter()
-        .filter(|c| is_anagram(&nword, &normalize(c), &nword_sorted))
-        .copied()
-        .collect()
-}
+pub fn anagrams_for<'a>(word: &str, possible_anagrams: &[&'a str]) -> HashSet<&'a str> {
+    let mut res: HashSet<&str> = HashSet::new();
+    for anagram in possible_anagrams {
+        println!("1. {} {}", word, anagram);
+        let word = word.to_lowercase();
+        let copy_lower = anagram.to_lowercase();
+        let mut chars: Vec<char> = word.chars().collect();
+        let mut anas: Vec<char> = copy_lower.chars().collect();
+        chars.sort_unstable();
+        anas.sort_unstable();
+        let x = &chars.iter().collect::<String>();
+        let y = &anas.iter().collect::<String>();
+        if x.len() != y.len() {continue;}
+        println!("2. {} {}", x, y);
+        if x == y {
+            if word == copy_lower {continue;}
+            res.insert(anagram);
+        };
 
-fn is_anagram(word1: &[char], word2: &[char], word1_sorted: &[char]) -> bool {
-    let mut result = false;
-    if word1.len() == word2.len() && word1.ne(word2) {
-        let mut list2 = word2.to_owned();
-        list2.sort_unstable();
-        result = word1_sorted.eq(&list2);
     }
-    result
-}
 
-fn normalize(word: &str) -> Vec<char> {
-    word.to_lowercase().chars().collect()
+    return res;
 }
