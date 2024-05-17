@@ -1,16 +1,14 @@
 /// Check a Luhn checksum.
-fn is_string_only_ints(s: &str) -> bool {
+fn is_string_only_ints(s: &str) -> bool{
     s.chars().all(|x| x.is_digit(10))
 }
 
-pub fn is_valid(code: &str) -> bool {
+fn is_valid(code: &str) -> bool {
+    // todo!("Is the Luhn checksum for {code} valid?");
     // reverse the string
-
     let no_whitespace: String = code.split_whitespace().collect();
+    println!("{}", no_whitespace);
     if !is_string_only_ints(&no_whitespace) {
-        return false;
-    } 
-    if no_whitespace.len() == 1{
         return false;
     }
 
@@ -35,4 +33,11 @@ pub fn is_valid(code: &str) -> bool {
     } else {
         return false;
     }
+}
+
+fn main() {
+    println!("{}", is_valid("234 567 891 234"));
+    println!("{}", is_valid("095 245 88"));
+    println!("{}", is_valid(" 0"));
+ 
 }

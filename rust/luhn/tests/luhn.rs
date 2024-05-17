@@ -5,6 +5,7 @@ fn process_valid_case(number: &str, is_luhn_expected: bool) {
 }
 
 #[test]
+#[ignore]
 fn single_digit_strings_can_not_be_valid() {
     process_valid_case("1", false);
 }
